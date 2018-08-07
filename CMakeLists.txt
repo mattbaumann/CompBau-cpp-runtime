@@ -32,6 +32,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}
 # Set the CPP files which should be compiled
 set(SOURCE_FILES
         src/HelloWorld.cpp
+        src/runner.cpp
         )
 
 add_library(SRC ${SOURCE_FILES})
@@ -53,6 +54,15 @@ target_link_libraries(SRC PUBLIC ${Boost_LIBRARIES})
 # ==============================================================================
 
 build_doxygen()
+
+# ==============================================================================
+# Executable
+# ==============================================================================
+
+add_executable(cpp-runtime main.cpp)
+
+target_link_libraries(cpp-runtime PUBLIC SRC)
+set_target_properties(cpp-runtime PROPERTIES LINKER_LANGUAGE CXX)
 
 # ==============================================================================
 # Testing Support
