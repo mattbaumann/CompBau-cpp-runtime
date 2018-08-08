@@ -50,6 +50,15 @@ target_include_directories(SRC PUBLIC ${Boost_INCLUDE_DIRS})
 target_link_libraries(SRC PUBLIC ${Boost_LIBRARIES})
 
 # ==============================================================================
+# YAML-CPP config
+# ==============================================================================
+
+find_package(yaml-cpp REQUIRED)
+
+target_include_directories(SRC PUBLIC yaml-cpp)
+target_link_libraries(SRC PUBLIC yaml-cpp)
+
+# ==============================================================================
 # Doxygen Support
 # ==============================================================================
 
