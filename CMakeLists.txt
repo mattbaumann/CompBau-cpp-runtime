@@ -31,7 +31,6 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}
 
 # Set the CPP files which should be compiled
 set(SOURCE_FILES
-        src/HelloWorld.cpp
         src/runner.cpp
         )
 
@@ -82,7 +81,6 @@ include_directories(${TEST_DIR} ${SOURCE_DIR} ${LIB_DIR})
 
 set(TEST_FILES
         test/main.cpp
-        test/HelloWorldTest.cpp
         )
 
 add_executable(unit-test ${LIB_DIR}/catch-1.10.h ${TEST_FILES})
