@@ -24,7 +24,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Compiler options
 set(GCC_COVERAGE_COMPILE_FLAGS "-fexceptions -fpermissive -fprofile-arcs -ftest-coverage -fPIC")
-set(GCC_COVERAGE_LINK_FLAGS "-lgcov -lpthread -lboost_system -lboost_thread")
+set(GCC_COVERAGE_LINK_FLAGS "-lgcov")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
@@ -32,6 +32,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}
 # Set the CPP files which should be compiled
 set(SOURCE_FILES
         src/runner.cpp
+        src/Runtime.cpp
         )
 
 add_library(SRC ${SOURCE_FILES})
@@ -40,7 +41,7 @@ add_library(SRC ${SOURCE_FILES})
 # Boost config
 # ==============================================================================
 set(Boost_USE_STATIC_LIBS ON)
-set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_MULTITHREADED OFF)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
 find_package(Boost 1.62 REQUIRED)
@@ -56,6 +57,15 @@ find_package(yaml-cpp REQUIRED)
 
 target_include_directories(SRC PUBLIC yaml-cpp)
 target_link_libraries(SRC PUBLIC yaml-cpp)
+
+# ==============================================================================
+# spdlog config
+# ==============================================================================
+
+find_package(spdlog REQUIRED)
+
+target_include_directories(SRC PUBLIC spdlog)
+target_link_libraries(SRC PUBLIC pthread)
 
 # ==============================================================================
 # Doxygen Support
@@ -81,9 +91,9 @@ include_directories(${TEST_DIR} ${SOURCE_DIR} ${LIB_DIR})
 
 set(TEST_FILES
         test/main.cpp
-        )
+        test/RuntimeTest.cpp)
 
-add_executable(unit-test ${LIB_DIR}/catch-1.10.h ${TEST_FILES})
+add_executable(unit-test ${LIB_DIR}/catch.hpp ${TEST_FILES})
 
 target_link_libraries(unit-test PUBLIC SRC)
 set_target_properties(unit-test PROPERTIES LINKER_LANGUAGE CXX)
