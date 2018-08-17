@@ -3,7 +3,7 @@
 
 namespace runtime::linker {
 
-    struct Linker {
+    struct linker {
 
     };
 }
