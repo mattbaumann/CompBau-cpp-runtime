@@ -33,7 +33,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}
 set(SOURCE_FILES
         src/runner.cpp
         src/Runtime.cpp
-        )
+        src/parser/parser.cpp)
 
 add_library(SRC ${SOURCE_FILES})
 
@@ -91,7 +91,7 @@ include_directories(${TEST_DIR} ${SOURCE_DIR} ${LIB_DIR})
 
 set(TEST_FILES
         test/main.cpp
-        test/RuntimeTest.cpp)
+        test/parser/parser_test.cpp)
 
 add_executable(unit-test ${LIB_DIR}/catch.hpp ${TEST_FILES})
 
