@@ -5,6 +5,7 @@
 #include "UnsupportedFileFormat.h"
 #include "method.h"
 #include "class_type.h"
+#include "parser_model.h"
 
 #include <yaml-cpp/yaml.h>
 
@@ -84,7 +85,7 @@ namespace runtime::parser {
         }
 
         /// \brief A factory that will read the intermediate language file and build a runtime-object from the code.
-        std::vector<runtime::parser::class_type>
+        parser_model
         parse_il(YAML::Node &intermediate, std::shared_ptr<spdlog::logger> &logger);
 
         void check_version(YAML::Node &root, std::shared_ptr<spdlog::logger> &logger);
@@ -97,8 +98,8 @@ namespace runtime::parser {
 
         parser::method parse_method(YAML::const_iterator::value_type &method);
 
-        std::vector<runtime::parser::class_type>
-        parse_types(YAML::Node &root_node, std::shared_ptr<spdlog::logger> &logger);
+        std::vector<runtime::parser::class_type> parse_types(YAML::Node &root_node,
+                                                             std::shared_ptr<spdlog::logger> &logger);
 
         runtime::parser::class_type parse_class(YAML::Node &type, std::shared_ptr<spdlog::logger> &logger);
     };

@@ -77,11 +77,11 @@ namespace runtime::parser {
         return complex_types;
     }
 
-    std::vector<runtime::parser::class_type>
-    Parser::parse_il(YAML::Node &intermediate, std::shared_ptr<spdlog::logger> &logger) {
+    parser_model Parser::parse_il(YAML::Node &intermediate, std::shared_ptr<spdlog::logger> &logger) {
         check_version(intermediate, logger);
         auto mainValue = read_attribute(intermediate, logger, il_main, il_main_error_desc);
         auto type_node = intermediate[il_types];
-        return parse_types(type_node, logger);
+        auto types = parse_types(type_node, logger);
+        return parser_model{mainValue, types};
     }
 }
