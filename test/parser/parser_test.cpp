@@ -64,13 +64,13 @@ TEST_CASE("parse instruction without value") {
     SECTION("correct parsing") {
         YAML::Node node = YAML::Load("[ret]");
         auto instruction = parser.parse_instruction_without_value(*node.begin());
-        REQUIRE(runtime::parser::instruction_code::ret == instruction.code);
+        REQUIRE(runtime::il::instruction_code::ret == instruction.code);
     }
 
     SECTION("case-insensitive parsing") {
         YAML::Node node = YAML::Load("[CaStclAss]");
         auto instruction = parser.parse_instruction_without_value(*node.begin());
-        REQUIRE(runtime::parser::instruction_code::castclass == instruction.code);
+        REQUIRE(runtime::il::instruction_code::castclass == instruction.code);
     }
 }
 
@@ -84,20 +84,20 @@ TEST_CASE("parse instruction with value") {
 
     SECTION("correct parsing") {
         YAML::Node node = YAML::Load("[{ldc_s: str}]");
-        runtime::parser::instruction instruction = parser.parse_instruction_with_value(*node.begin());
-        REQUIRE(runtime::parser::instruction_code::ldc_s == instruction.code);
+        runtime::il::instruction instruction = parser.parse_instruction_with_value(*node.begin());
+        REQUIRE(runtime::il::instruction_code::ldc_s == instruction.code);
     }
 
     SECTION("correct value") {
         YAML::Node node = YAML::Load("[{ldc_s: str}]");
-        runtime::parser::instruction instruction = parser.parse_instruction_with_value(*node.begin());
+        runtime::il::instruction instruction = parser.parse_instruction_with_value(*node.begin());
         REQUIRE("str" == instruction.argument);
     }
 
     SECTION("case-insensitive parsing") {
         YAML::Node node = YAML::Load("[{CaStClasS: str}]");
-        runtime::parser::instruction instruction = parser.parse_instruction_with_value(*node.begin());
-        REQUIRE(runtime::parser::instruction_code::castclass == instruction.code);
+        runtime::il::instruction instruction = parser.parse_instruction_with_value(*node.begin());
+        REQUIRE(runtime::il::instruction_code::castclass == instruction.code);
     }
 }
 
@@ -106,38 +106,38 @@ TEST_CASE("parse code") {
 
     SECTION("empty code block") {
         YAML::Node node = YAML::Load("[]");
-        std::vector<runtime::parser::instruction> instructions = parser.parse_code(node);
+        std::vector<runtime::il::instruction> instructions = parser.parse_code(node);
         REQUIRE(instructions.empty());
     }
 
     SECTION("code without value") {
         YAML::Node node = YAML::Load("[ret, ret]");
         auto expected = std::vector{
-                runtime::parser::instruction{runtime::parser::instruction_code::ret},
-                runtime::parser::instruction{runtime::parser::instruction_code::ret}
+                runtime::il::instruction{runtime::il::instruction_code::ret},
+                runtime::il::instruction{runtime::il::instruction_code::ret}
         };
-        std::vector<runtime::parser::instruction> instructions = parser.parse_code(node);
+        std::vector<runtime::il::instruction> instructions = parser.parse_code(node);
         REQUIRE(expected == instructions);
     }
 
     GIVEN("code with value") {
         YAML::Node node = YAML::Load("[ldc_i: 0, ldc_s: uno]");
         auto expected = std::vector{
-                runtime::parser::instruction{runtime::parser::instruction_code::ldc_i, "0"},
-                runtime::parser::instruction{runtime::parser::instruction_code::ldc_s, "uno"}
+                runtime::il::instruction{runtime::il::instruction_code::ldc_i, "0"},
+                runtime::il::instruction{runtime::il::instruction_code::ldc_s, "uno"}
         };
-        std::vector<runtime::parser::instruction> instructions = parser.parse_code(node);
+        std::vector<runtime::il::instruction> instructions = parser.parse_code(node);
         REQUIRE(expected == instructions);
     }
 
     GIVEN("mixed code with/out values") {
         YAML::Node node = YAML::Load("[ldc_i: 0, ret, ldc_s: uno]");
         auto expected = std::vector{
-                runtime::parser::instruction{runtime::parser::instruction_code::ldc_i, "0"},
-                runtime::parser::instruction{runtime::parser::instruction_code::ret},
-                runtime::parser::instruction{runtime::parser::instruction_code::ldc_s, "uno"}
+                runtime::il::instruction{runtime::il::instruction_code::ldc_i, "0"},
+                runtime::il::instruction{runtime::il::instruction_code::ret},
+                runtime::il::instruction{runtime::il::instruction_code::ldc_s, "uno"}
         };
-        std::vector<runtime::parser::instruction> instructions = parser.parse_code(node);
+        std::vector<runtime::il::instruction> instructions = parser.parse_code(node);
         REQUIRE(expected == instructions);
     }
 }
@@ -148,7 +148,7 @@ TEST_CASE("parse method") {
     SECTION("method without code") {
         YAML::Node node = YAML::Load("[{name: Main}]");
         runtime::parser::method expected{"Main", "void", std::vector<std::string>{}, std::vector<std::string>{},
-                                         std::vector<runtime::parser::instruction>{}};
+                                         std::vector<runtime::il::instruction>{}};
         auto method = parser.parse_method(*node.begin());
         REQUIRE(expected == method);
     }
@@ -157,7 +157,7 @@ TEST_CASE("parse method") {
         YAML::Node node = YAML::Load("[{name: Main, params: [-1], returns: 1, locals: [-2], code: [ret]}]");
         runtime::parser::method expected{"Main", "1", std::vector<std::string>{"-1"}, std::vector<std::string>{"-2"},
                                          std::vector{
-                                                 runtime::parser::instruction{runtime::parser::instruction_code::ret}}};
+                                                 runtime::il::instruction{runtime::il::instruction_code::ret}}};
         REQUIRE(expected == parser.parse_method(*node.begin()));
     }
 }
