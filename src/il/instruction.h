@@ -1,11 +1,11 @@
 #ifndef COMPBAU_CPP_RUNTIME_INSTRUCTION_H
 #define COMPBAU_CPP_RUNTIME_INSTRUCTION_H
 
-#include "instruction_code.h"
+#include "il/instruction_code.h"
 
 #include <string>
 
-namespace runtime::parser {
+namespace runtime::il {
 
     struct instruction {
         instruction_code code;

@@ -16,7 +16,7 @@ namespace runtime::parser {
         }
     }
 
-    parser::instruction Parser::parse_instruction_with_value(YAML::const_iterator::value_type &i) {
+    runtime::il::instruction Parser::parse_instruction_with_value(YAML::const_iterator::value_type &i) {
         if (i.begin() == i.end()) {
             throw UnsupportedFileFormat{"Empty code instruction"};
         }
@@ -26,21 +26,21 @@ namespace runtime::parser {
         std::transform(begin(inst_str), end(inst_str), begin(inst_str),
                        [](unsigned char c) { return std::tolower(c); });
         runtime::trim(inst_str);
-        parser::instruction inst{instructions.at(inst_str), value};
+        runtime::il::instruction inst{instructions.at(inst_str), value};
         return inst;
     }
 
-    parser::instruction Parser::parse_instruction_without_value(YAML::const_iterator::value_type &i) {
+    runtime::il::instruction Parser::parse_instruction_without_value(YAML::const_iterator::value_type &i) {
         auto inst_str = i.as<std::string>();
         std::transform(inst_str.begin(), inst_str.end(), inst_str.begin(),
                        [](unsigned char c) { return std::tolower(c); });
         runtime::trim(inst_str);
-        parser::instruction inst{instructions.at(inst_str)};
+        runtime::il::instruction inst{instructions.at(inst_str)};
         return inst;
     }
 
-    std::vector<runtime::parser::instruction> Parser::parse_code(YAML::Node code_list) {
-        std::vector<runtime::parser::instruction> code{};
+    std::vector<runtime::il::instruction> Parser::parse_code(YAML::Node code_list) {
+        std::vector<runtime::il::instruction> code{};
         std::transform(std::begin(code_list), std::end(code_list), std::back_inserter(code),
                        [&](auto &&i) {
                            return i.IsMap() ? parse_instruction_with_value(i) : parse_instruction_without_value(i);

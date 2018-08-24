@@ -2,6 +2,7 @@
 #define COMPBAU_CPP_RUNTIME_PARSER_VISITOR_H
 
 #include "parser_model.h"
+#include "il/instruction.h"
 
 namespace runtime::parser {
 
@@ -37,7 +38,7 @@ namespace runtime::parser {
             }
         }
 
-        virtual void visitInstruction(instruction const &instruction) {}
+        virtual void visitInstruction(il::instruction const &instruction) {}
 
         virtual void visitParam(std::string const &type) {}
 

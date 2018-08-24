@@ -1,7 +1,7 @@
 #ifndef COMPBAU_CPP_RUNTIME_INSTRUCTION_CODE_H
 #define COMPBAU_CPP_RUNTIME_INSTRUCTION_CODE_H
 
-namespace runtime::parser {
+namespace runtime::il {
     enum class instruction_code {
         ldc_b,  // load constant bool (operand bool)        // ... -> ..., bool
         ldc_c,  // load constant char (operand char)        // ... -> ..., char

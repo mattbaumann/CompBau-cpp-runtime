@@ -1,7 +1,7 @@
 #ifndef COMPBAU_CPP_RUNTIME_RUNTIME_H
 #define COMPBAU_CPP_RUNTIME_RUNTIME_H
 
-#include "instruction_code.h"
+#include "il/instruction_code.h"
 #include "UnsupportedFileFormat.h"
 #include "method.h"
 #include "class_type.h"
@@ -33,7 +33,7 @@ namespace runtime::parser {
         std::string const il_base{"base"};
 
         /// \brief parsing map for instruction codes
-        const std::map<std::string, runtime::parser::instruction_code> instructions = {
+        const std::map<std::string, runtime::il::instruction_code> instructions = {
                 {"ldc_b",     parser::instruction_code::ldc_b},
                 {"ldc_c",     parser::instruction_code::ldc_c},
                 {"ldc_i",     parser::instruction_code::ldc_i},
@@ -51,7 +51,8 @@ namespace runtime::parser {
                 {"clt",       parser::instruction_code::clt},
                 {"cle",       parser::instruction_code::cle},
                 {"cgt",       parser::instruction_code::cgt},
-                {"cge",       parser::instruction_code::ceq},
+                {"cge",       parser::instruction_code::cge},
+                {"ceq",       parser::instruction_code::ceq},
                 {"cne",       parser::instruction_code::cne},
                 {"ldloc",     parser::instruction_code::ldloc},
                 {"stloc",     parser::instruction_code::stloc},
@@ -90,11 +91,11 @@ namespace runtime::parser {
 
         void check_version(YAML::Node &root, std::shared_ptr<spdlog::logger> &logger);
 
-        runtime::parser::instruction parse_instruction_with_value(YAML::const_iterator::value_type &i);
+        runtime::il::instruction parse_instruction_with_value(YAML::const_iterator::value_type &i);
 
-        runtime::parser::instruction parse_instruction_without_value(YAML::const_iterator::value_type &i);
+        runtime::il::instruction parse_instruction_without_value(YAML::const_iterator::value_type &i);
 
-        std::vector<runtime::parser::instruction> parse_code(YAML::Node method);
+        std::vector<runtime::il::instruction> parse_code(YAML::Node method);
 
         parser::method parse_method(YAML::const_iterator::value_type &method);
 

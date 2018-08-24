@@ -1,8 +1,8 @@
 #ifndef COMPBAU_CPP_RUNTIME_METHOD_H
 #define COMPBAU_CPP_RUNTIME_METHOD_H
 
-#include "instruction_code.h"
-#include "instruction.h"
+#include "il/instruction_code.h"
+#include "il/instruction.h"
 
 #include <string>
 #include <vector>
@@ -17,10 +17,10 @@ namespace runtime::parser {
         std::string returns;
         std::vector<std::string> params;
         std::vector<std::string> locals;
-        std::vector<runtime::parser::instruction> code;
+        std::vector<runtime::il::instruction> code;
 
         method(std::string name, std::string returns, std::vector<std::string> params,
-               std::vector<std::string> locals, std::vector<runtime::parser::instruction> code)
+               std::vector<std::string> locals, std::vector<runtime::il::instruction> code)
                 : name{std::move(name)}, returns{std::move(returns)}, params{std::move(params)},
                   locals{std::move(locals)}, code{std::move(code)} {}
 
