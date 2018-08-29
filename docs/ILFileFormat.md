@@ -5,12 +5,12 @@ version: 1
 main: 0
 types:
   - name: MainClass
-    base: # Here index of base class (e.g. 1)
+    base: BaseClass # Omission means no base class
     fields:
-      - -1
+      - int
     methods:
       - name: Main
-        returns: null # Omission equivalent to null
+        returns: null # Omission equivalent to null, void
         params: # Omission equivalent to no parameters
           - int
           - MainClass
