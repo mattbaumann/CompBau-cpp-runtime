@@ -93,7 +93,8 @@ include_directories(${TEST_DIR} ${SOURCE_DIR} ${LIB_DIR})
 set(TEST_FILES
         test/main.cpp
         test/parser/parser_test.cpp
-        test/linker/linker_test.cpp)
+        test/linker/linker_test.cpp
+        test/utils_test.cpp)
 
 add_executable(unit-test ${LIB_DIR}/catch.hpp ${TEST_FILES})
 
