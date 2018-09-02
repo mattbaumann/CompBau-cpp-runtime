@@ -5,21 +5,27 @@
 
 #include <string>
 
-namespace runtime::linker {
-    class class_type : base_type {
+namespace runtime::il {
+    class class_type : public base_type {
     public:
         explicit class_type(std::string name) : name(std::move(name)) {}
 
-    private:
-
-        explicit operator std::string() override {
+        explicit operator std::string() const override {
             return name;
         }
 
-        // TODO: Add vector<method> with the overrides applied to method calls
+        std::vector<method> const get_virtual_dispatch() const override {
+            return std::vector<method>{};
+        }
+
+        std::vector<std::pair<std::string, std::shared_ptr<base_type>>> const get_fields() const override {
+            return std::vector<std::pair<std::string, std::shared_ptr<base_type>>>{};
+        }
 
     private:
         std::string name;
+        std::vector<method> methods{};
+        std::vector<base_type> fields{};
     };
 }
 
