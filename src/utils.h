@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <cctype>
 #include <locale>
+#include <sstream>
+#include <iterator>
 
 namespace runtime {
 
@@ -17,6 +19,18 @@ namespace runtime {
     static inline std::string trim_copy(std::string s) {
         trim(s);
         return s;
+    }
+
+    /// \brief Joins any datatype together and inserts the separator between.
+    ///
+    /// This function requires your type to have an output operator which writes the types into an underlaying string.
+    template<typename FwdIter>
+    std::string join(FwdIter begin, FwdIter end, std::string const &separator) {
+        std::ostringstream builder{};
+        using item_type = typename std::iterator_traits<FwdIter>::value_type;
+        std::copy(begin, end, std::ostream_iterator<item_type>{builder, separator.c_str()});
+        auto joined = builder.str();
+        return joined.substr(0, joined.size() - separator.size());
     }
 }
 
