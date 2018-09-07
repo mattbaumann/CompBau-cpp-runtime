@@ -35,7 +35,9 @@ set(SOURCE_FILES
         src/Runtime.cpp
         src/parser/parser.cpp
         src/linker/linker.cpp
-        src/il/build_in_type.cpp)
+        src/il/build_in_type.cpp
+        src/il/method.cpp
+        )
 
 add_library(SRC ${SOURCE_FILES})
 
@@ -98,7 +100,8 @@ set(TEST_FILES
         test/utils_test.cpp
         test/il/array_type_test.cpp
         test/il/build_in_type_test.cpp
-        test/il/class_type_test.cpp)
+        test/il/class_type_test.cpp
+        test/il/method_test.cpp)
 
 add_executable(unit-test ${LIB_DIR}/catch.hpp ${TEST_FILES})
 

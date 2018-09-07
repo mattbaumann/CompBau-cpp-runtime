@@ -1,16 +1,29 @@
-//
-// Created by matt on 8/19/18.
-//
+#ifndef COMPBAU_CPP_RUNTIME_IL_METHOD_H
+#define COMPBAU_CPP_RUNTIME_IL_METHOD_H
 
-#ifndef COMPBAU_CPP_RUNTIME_METHOD_H
-#define COMPBAU_CPP_RUNTIME_METHOD_H
+#include "instruction.h"
+#include "base_type.h"
 
+#include <vector>
+#include <string>
+#include <memory>
 
+namespace runtime::il {
+    class base_type;
 
-class method {
+    struct method {
+        std::string name;
+        std::shared_ptr<base_type> return_type{};
+        std::vector<std::shared_ptr<base_type>> parameter_types{};
+        std::vector<std::shared_ptr<base_type>> local_types{};
+        std::vector<instruction> code{};
 
-};
+        explicit method(std::string name) : name{std::move(name)} {}
 
+        explicit operator std::string() const noexcept { return to_string(); }
 
+        std::string to_string() const noexcept;
+    };
+}
 
 #endif //COMPBAU_CPP_RUNTIME_METHOD_H
