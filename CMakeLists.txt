@@ -35,7 +35,6 @@ set(SOURCE_FILES
         src/Runtime.cpp
         src/parser/parser.cpp
         src/linker/linker.cpp
-        src/il/build_in_type.cpp
         src/il/method.cpp
         )
 
