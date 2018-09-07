@@ -24,6 +24,12 @@ namespace runtime::il {
 
         std::string to_string() const noexcept;
     };
+
+    inline bool operator==(method const &left, method const &right) noexcept {
+        return left.to_string() == right.to_string();
+    }
+
+    inline bool operator!=(method const &left, method const &right) noexcept { return !(left == right); }
 }
 
 #endif //COMPBAU_CPP_RUNTIME_METHOD_H
