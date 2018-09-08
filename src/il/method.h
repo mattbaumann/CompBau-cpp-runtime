@@ -30,6 +30,14 @@ namespace runtime::il {
     }
 
     inline bool operator!=(method const &left, method const &right) noexcept { return !(left == right); }
+
+    inline bool operator==(std::shared_ptr<method> const &left, std::shared_ptr<method> const &right) noexcept {
+        return left && right && (*left == *right);
+    }
+
+    inline bool operator!=(std::shared_ptr<method> const &left, std::shared_ptr<method> const &right) noexcept {
+        return !(left == right);
+    }
 }
 
 #endif //COMPBAU_CPP_RUNTIME_METHOD_H

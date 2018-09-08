@@ -73,4 +73,24 @@ TEST_CASE("method descriptor") {
         test2.parameter_types.push_back(type_ptr);
         REQUIRE(test1 == test2);
     }
+
+    SECTION("shared_ptr method comparison") {
+        auto ptr1 = std::make_shared<runtime::il::method>(method_name);
+        auto ptr2 = std::make_shared<runtime::il::method>(method_name);
+        REQUIRE(ptr1 == ptr2);
+    }
+
+    SECTION("shared_ptr method comparison dangling ptr") {
+        auto ptr1 = std::make_shared<runtime::il::method>(method_name);
+        auto ptr2 = std::make_shared<runtime::il::method>(method_name);
+        ptr1.reset();
+        REQUIRE_FALSE(ptr1 == ptr2);
+    }
+
+    SECTION("shared_ptr method comparison dangling ptr2") {
+        auto ptr1 = std::make_shared<runtime::il::method>(method_name);
+        auto ptr2 = std::make_shared<runtime::il::method>(method_name);
+        ptr2.reset();
+        REQUIRE_FALSE(ptr1 == ptr2);
+    }
 }
