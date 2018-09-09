@@ -24,7 +24,7 @@ namespace runtime::il {
 
         virtual std::string to_string() const noexcept = 0;
 
-        virtual std::vector<method> const get_virtual_dispatch() const = 0;
+        virtual std::vector<std::shared_ptr<method>> const get_virtual_dispatch() = 0;
 
         virtual std::vector<std::pair<std::string, std::shared_ptr<base_type>>> const get_fields() const = 0;
     };

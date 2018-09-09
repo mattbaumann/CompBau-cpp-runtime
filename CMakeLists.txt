@@ -36,7 +36,7 @@ set(SOURCE_FILES
         src/parser/parser.cpp
         src/linker/linker.cpp
         src/il/method.cpp
-        )
+        src/il/class_type.cpp)
 
 add_library(SRC ${SOURCE_FILES})
 

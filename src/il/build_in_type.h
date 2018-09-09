@@ -16,7 +16,8 @@ namespace runtime::il {
             return name;
         }
 
-        std::vector<method> const get_virtual_dispatch() const override { return std::vector<method>{ }; }
+        std::vector<std::shared_ptr<method>> const
+        get_virtual_dispatch() override { return std::vector<std::shared_ptr<method>>{ }; }
 
         std::vector<std::pair<std::string, std::shared_ptr<base_type>>> const get_fields() const override {
             return std::vector<std::pair<std::string, std::shared_ptr<base_type>>>{ };
