@@ -1,5 +1,6 @@
 #include "method.h"
 #include "utils.h"
+#include "base_type.h"
 
 std::string runtime::il::method::to_string() const noexcept {
     std::ostringstream result{};

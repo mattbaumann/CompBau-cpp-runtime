@@ -2,7 +2,6 @@
 #define COMPBAU_CPP_RUNTIME_IL_METHOD_H
 
 #include "instruction.h"
-#include "base_type.h"
 
 #include <vector>
 #include <string>
