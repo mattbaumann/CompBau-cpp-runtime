@@ -170,8 +170,8 @@ TEST_CASE("parse class") {
 
     SECTION("empty class") {
         YAML::Node node = YAML::Load("{name: MainClass, fields: [-1]}");
-        runtime::parser::class_type expected{"MainClass", "", std::vector<std::string>{"-1"},
-                                             std::vector<runtime::parser::method>{}};
+        runtime::parser::class_node expected{ "MainClass", "", std::vector<std::string>{ "-1" },
+                                              std::vector<runtime::parser::method>{ }};
         auto class_descriptor = parser.parse_class(node, logger);
         REQUIRE(expected == class_descriptor);
     }

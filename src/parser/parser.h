@@ -4,7 +4,7 @@
 #include "il/instruction_code.h"
 #include "UnsupportedFileFormat.h"
 #include "method.h"
-#include "class_type.h"
+#include "class_node.h"
 #include "parser_model.h"
 
 #include <yaml-cpp/yaml.h>
@@ -99,10 +99,10 @@ namespace runtime::parser {
 
         parser::method parse_method(YAML::const_iterator::value_type &method);
 
-        std::vector<runtime::parser::class_type> parse_types(YAML::Node &root_node,
+        std::vector<runtime::parser::class_node> parse_types(YAML::Node &root_node,
                                                              std::shared_ptr<spdlog::logger> &logger);
 
-        runtime::parser::class_type parse_class(YAML::Node &type, std::shared_ptr<spdlog::logger> &logger);
+        runtime::parser::class_node parse_class(YAML::Node &type, std::shared_ptr<spdlog::logger> &logger);
     };
 
 }

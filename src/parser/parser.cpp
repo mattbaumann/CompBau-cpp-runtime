@@ -58,7 +58,7 @@ namespace runtime::parser {
         return parser::method{method_name, returns, params, locals, code};
     }
 
-    runtime::parser::class_type Parser::parse_class(YAML::Node &type, std::shared_ptr<spdlog::logger> &logger) {
+    runtime::parser::class_node Parser::parse_class(YAML::Node &type, std::shared_ptr<spdlog::logger> &logger) {
         auto name = read_attribute(type, logger, il_name, il_name_error_desc);
         auto base = type[il_base].IsDefined() ? type[il_base].as<std::string>() : "";
         auto fields = type[il_fields].as<std::vector<std::string>>(std::vector<std::string>{});
@@ -66,12 +66,12 @@ namespace runtime::parser {
         std::vector<runtime::parser::method> methods{};
         std::transform(std::begin(type[il_methods]), std::end(type[il_methods]), back_inserter(methods),
                        [&](auto &&method) { return parse_method(method); });
-        return runtime::parser::class_type{name, base, fields, methods};
+        return runtime::parser::class_node{ name, base, fields, methods };
     }
 
-    std::vector<runtime::parser::class_type>
+    std::vector<runtime::parser::class_node>
     Parser::parse_types(YAML::Node &root_node, std::shared_ptr<spdlog::logger> &logger) {
-        std::vector<runtime::parser::class_type> complex_types{};
+        std::vector<runtime::parser::class_node> complex_types{ };
         std::transform(std::begin(root_node), std::end(root_node), back_inserter(complex_types),
                        [&](auto &&type) { return parse_class(type, logger); });
         return complex_types;
